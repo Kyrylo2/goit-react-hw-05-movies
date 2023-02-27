@@ -75,7 +75,6 @@ export async function getMovieDetails(movieId) {
 }
 
 export async function getMovieCredits(movieId) {
-  // https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=<<api_key>>&language=en-US
   const axiosOptions = {
     params: {
       api_key: KEY,
@@ -94,9 +93,30 @@ export async function getMovieCredits(movieId) {
     console.log(err);
   }
 }
+
+export async function getMovieReviews(movieId) {
+  const axiosOptions = {
+    params: {
+      api_key: KEY,
+      language: 'en-US',
+    },
+  };
+
+  try {
+    const { data } = await axios.get(
+      `${BASE_URL_MOVIE_DETAILS}${movieId}/reviews`,
+      axiosOptions
+    );
+
+    return data.results;
+  } catch (err) {
+    console.log(err);
+  }
+}
 export const API = {
   getTrandingMovies,
   getFilmsByQuery,
   getMovieDetails,
   getMovieCredits,
+  getMovieReviews,
 };

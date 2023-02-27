@@ -2,17 +2,19 @@ import Searchbar from 'components/Searchbar';
 import { getFilmsByQuery } from 'Services/axios-API-service';
 
 import { useEffect, useState } from 'react';
+import useQuery from 'hooks/useQuery';
+
 import MovieGrid from 'components/MoviesGrid/MoviesGrid';
 
 const Movies = () => {
-  const [query, setQuery] = useState(null);
+  const [query, setQuery] = useQuery();
   const [page, setPage] = useState(1);
   const [movies, setMovies] = useState([]);
 
   const onSubmit = query => {
-    // console.log(query);
     setQuery(query);
     setPage(1);
+    setMovies([]);
   };
 
   useEffect(() => {
@@ -20,8 +22,7 @@ const Movies = () => {
     const fetchData = async (data, page) => {
       try {
         const response = await getFilmsByQuery(data, page);
-
-        setMovies(prevState => [...prevState, ...response]);
+        setMovies(response);
       } catch (err) {
         console.log(err);
       }
@@ -32,14 +33,9 @@ const Movies = () => {
     fetchData(query, page);
   }, [query, page]);
 
-  // useEffect(() => {
-  //   console.log(movies);
-  // }, [movies]);
-
   return (
     <>
       <Searchbar onSubmitProp={onSubmit} />
-
       {movies.length > 0 && (
         <>
           <h1>Here's what I found for the query "{query}"</h1>
