@@ -22,7 +22,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<AppBar />}>
           <Route index element={<Home />} />
-          <Route path="movies" element={<Movies />} />
+          <Route path="movies" element={<Movies fromHomeProp={true} />} />
           <Route path="movies/:movieId" element={<MovieDetails />}>
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />

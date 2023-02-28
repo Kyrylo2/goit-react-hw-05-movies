@@ -17,7 +17,14 @@ const Reviews = () => {
     console.log(reviewsList);
   }, [reviewsList]);
 
-  return reviewsList && <ReviesList reviewsListArr={reviewsList} />;
+  return (
+    reviewsList &&
+    (reviewsList.lenght > 0 ? (
+      <ReviesList reviewsListArr={reviewsList} />
+    ) : (
+      <div>No reviews</div>
+    ))
+  );
 };
 
 export default Reviews;
