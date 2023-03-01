@@ -9,22 +9,12 @@ const Reviews = () => {
 
   useEffect(() => {
     getMovieReviews(movieId).then(response => {
+      console.log(response);
       setReviewsList(response);
     });
   }, [movieId]);
 
-  useEffect(() => {
-    console.log(reviewsList);
-  }, [reviewsList]);
-
-  return (
-    reviewsList &&
-    (reviewsList.lenght > 0 ? (
-      <ReviesList reviewsListArr={reviewsList} />
-    ) : (
-      <div>No reviews</div>
-    ))
-  );
+  return reviewsList && <ReviesList reviewsListArr={reviewsList} />;
 };
 
 export default Reviews;

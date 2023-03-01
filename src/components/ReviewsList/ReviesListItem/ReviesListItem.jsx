@@ -10,6 +10,7 @@ import {
   ReviewContent,
 } from './ReviesListItem.styled';
 import defaultImage from 'images/no-poster1.webp';
+import PropTypes from 'prop-types';
 
 function ReviewsListItem({ reviewsListItem }) {
   const {
@@ -41,5 +42,17 @@ function ReviewsListItem({ reviewsListItem }) {
     </ReviewItem>
   );
 }
+
+ReviewsListItem.propTypes = {
+  reviewsListItem: PropTypes.shape({
+    author_details: PropTypes.shape({
+      avatar_path: PropTypes.string,
+      rating: PropTypes.number,
+      username: PropTypes.string.isRequired,
+    }).isRequired,
+    content: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default ReviewsListItem;

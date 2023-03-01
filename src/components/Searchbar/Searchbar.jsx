@@ -16,12 +16,10 @@ function Searchbar({ onSubmitProp }) {
 
   const handleStateChange = e => {
     setInput(e.currentTarget.value.toLowerCase());
-    // console.log(e.currentTarget.value.toLowerCase());
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    // console.log(input);
 
     if (input.trim() === '') {
       return toast.warn('Please enter a valid input');

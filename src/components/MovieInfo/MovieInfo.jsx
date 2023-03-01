@@ -1,7 +1,6 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import defaultImage from '../../images/no-poster1.webp';
-
 import {
   MovieContainer,
   MovieImage,
@@ -18,7 +17,6 @@ const MovieInfo = ({
   genres,
 }) => {
   const year = release_date && release_date.substring(0, 4);
-  console.log(poster_path);
   const posterImage = poster_path
     ? `https://image.tmdb.org/t/p/w500${poster_path}`
     : defaultImage;
@@ -35,6 +33,16 @@ const MovieInfo = ({
       </MovieDetailsContainer>
     </MovieContainer>
   );
+};
+
+MovieInfo.propTypes = {
+  movieInfo: PropTypes.shape({
+    poster_path: PropTypes.string,
+    overview: PropTypes.string,
+    release_date: PropTypes.string,
+    title: PropTypes.string,
+    vote_average: PropTypes.number,
+  }).isRequired,
 };
 
 export default MovieInfo;

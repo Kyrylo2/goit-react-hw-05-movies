@@ -18,15 +18,12 @@ const Movies = () => {
   };
 
   useEffect(() => {
-    console.log('useEffect called on movies component');
     const fetchData = async (data, page) => {
       try {
         const response = await getFilmsByQuery(data, page);
 
         setMovies(response);
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     };
 
     if (!query) return;

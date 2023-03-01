@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   ActorsGridContainer,
   ActorCard,
@@ -30,5 +31,15 @@ function CastList({ castListArr }) {
     </ActorsGridContainer>
   );
 }
+
+CastList.propTypes = {
+  castListArr: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      character: PropTypes.string.isRequired,
+      profile_path: PropTypes.string,
+    })
+  ).isRequired,
+};
 
 export default CastList;

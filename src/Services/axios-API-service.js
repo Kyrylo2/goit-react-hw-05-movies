@@ -15,14 +15,12 @@ export async function getTrandingMovies() {
 
   try {
     const {
-      data: { results, total_results },
-      status,
+      data: { results },
     } = await axios.get(BASE_URL_TRANDING, axiosOptions);
-    console.log(status, total_results);
-    console.log(results);
+
     return results;
   } catch (err) {
-    console.log(err);
+    throw new Error(`Sorry, please try again.`);
   }
 }
 
@@ -49,9 +47,7 @@ export async function getFilmsByQuery(searchQuery, page) {
     }
 
     return results;
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 }
 
 export async function getMovieDetails(movieId) {
@@ -67,10 +63,9 @@ export async function getMovieDetails(movieId) {
       axiosOptions
     );
 
-    console.log(data);
     return data;
   } catch (err) {
-    console.log(err);
+    throw new Error(`Sorry, there is no movie details available`);
   }
 }
 
@@ -90,7 +85,7 @@ export async function getMovieCredits(movieId) {
 
     return data;
   } catch (err) {
-    console.log(err);
+    throw new Error(`Sorry, there is no movie casts available`);
   }
 }
 
@@ -110,7 +105,7 @@ export async function getMovieReviews(movieId) {
 
     return data.results;
   } catch (err) {
-    console.log(err);
+    throw new Error(`Sorry, there is no movie reviews available`);
   }
 }
 export const API = {

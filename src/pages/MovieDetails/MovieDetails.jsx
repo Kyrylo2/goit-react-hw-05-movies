@@ -25,7 +25,6 @@ const MovieDetails = () => {
         response.genres.length > 1
           ? response.genres.map(ganre => ganre.name).join(', ')
           : response.ganres.name;
-      console.log(genresString);
       setGenres(genresString);
     });
   }, [movieId]);
