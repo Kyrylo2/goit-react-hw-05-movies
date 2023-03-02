@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import {
@@ -11,8 +11,12 @@ import {
 
 import searchIcon from '../../resources/search_icon.svg';
 
-function Searchbar({ onSubmitProp }) {
+function Searchbar({ value, onSubmitProp }) {
   const [input, setInput] = useState('');
+
+  useEffect(() => {
+    setInput(value);
+  }, [value]);
 
   const handleStateChange = e => {
     setInput(e.currentTarget.value.toLowerCase());

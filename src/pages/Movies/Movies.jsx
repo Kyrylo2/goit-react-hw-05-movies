@@ -13,6 +13,7 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
 
   const [query, setQuery] = useSearchParams();
+  const currentQuery = query.get('query') ?? '';
 
   const onSubmit = query => {
     setQuery(query ? { query: query } : {});
@@ -28,16 +29,15 @@ const Movies = () => {
         setMovies(response);
       } catch (err) {}
     };
-    const currentQuery = query.get('query');
 
     if (!query.get('query')) return;
 
     fetchData(currentQuery, page);
-  }, [query, page]);
+  }, [currentQuery, page, query]);
 
   return (
     <>
-      <Searchbar onSubmitProp={onSubmit} />
+      <Searchbar value={currentQuery} onSubmitProp={onSubmit} />
       {movies?.length > 0 && (
         <>
           <h1>Here's what I found for the query "{query.get('query')}"</h1>
