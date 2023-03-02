@@ -5,14 +5,17 @@ import { useEffect, useState } from 'react';
 import useQuery from 'hooks/useQuery';
 
 import MovieGrid from 'components/MoviesGrid/MoviesGrid';
+import { useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
-  const [query, setQuery] = useQuery();
+  // const [query, setQuery] = useQuery();
   const [page, setPage] = useState(1);
   const [movies, setMovies] = useState([]);
 
+  const [query, setQuery] = useSearchParams();
+
   const onSubmit = query => {
-    setQuery(query);
+    setQuery(query ? { query: query } : {});
     setPage(1);
     setMovies([]);
   };
@@ -25,18 +28,19 @@ const Movies = () => {
         setMovies(response);
       } catch (err) {}
     };
+    const currentQuery = query.get('query');
 
-    if (!query) return;
+    if (!query.get('query')) return;
 
-    fetchData(query, page);
+    fetchData(currentQuery, page);
   }, [query, page]);
 
   return (
     <>
       <Searchbar onSubmitProp={onSubmit} />
-      {movies.length > 0 && (
+      {movies?.length > 0 && (
         <>
-          <h1>Here's what I found for the query "{query}"</h1>
+          <h1>Here's what I found for the query "{query.get('query')}"</h1>
           <MovieGrid moviesArr={movies} />
         </>
       )}
