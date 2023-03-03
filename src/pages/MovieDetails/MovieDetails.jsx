@@ -19,13 +19,14 @@ const MovieDetails = () => {
   const [genres, setGenres] = useState('');
 
   const location = useLocation();
-  // console.log(location);
+
   const currentPath3 = useRef(
-    location?.state?.from?.pathname === '/movies'
-      ? `/movies/${location?.state.from.search}`
-      : '/'
+    !location.pathname.includes('cast')
+      ? location?.state?.from?.pathname === '/movies'
+        ? `/movies/${location?.state.from.search}`
+        : '/'
+      : ''
   );
-  // console.log(currentPath3.current);
 
   useEffect(() => {
     getMovieDetails(movieId).then(response => {
@@ -63,7 +64,7 @@ const MovieDetails = () => {
             <MovieButtonContainer>
               <MovieInfoButton
                 to={`/movies/${movieId}/cast`}
-                state={{ from: location }}
+                state={{ from: currentPath3 }}
               >
                 Cast
               </MovieInfoButton>
