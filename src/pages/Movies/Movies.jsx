@@ -2,7 +2,7 @@ import Searchbar from 'components/Searchbar';
 import { getFilmsByQuery } from 'Services/axios-API-service';
 
 import { useEffect, useState } from 'react';
-import useQuery from 'hooks/useQuery';
+// import useQuery from 'hooks/useQuery';
 
 import MovieGrid from 'components/MoviesGrid/MoviesGrid';
 import { useSearchParams } from 'react-router-dom';
