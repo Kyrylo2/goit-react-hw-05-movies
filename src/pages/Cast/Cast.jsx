@@ -1,11 +1,14 @@
 import { getMovieCredits } from 'Services/axios-API-service';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import CastList from 'components/CastList/CastList';
 
 const Cast = () => {
   const { movieId } = useParams();
   const [castList, setCastList] = useState(null);
+
+  const location = useLocation();
+  console.log(location);
 
   useEffect(() => {
     getMovieCredits(movieId).then(response => {
