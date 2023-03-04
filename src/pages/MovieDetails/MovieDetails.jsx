@@ -1,6 +1,6 @@
 import { useParams, useLocation, Outlet } from 'react-router-dom';
 
-import { useState, useEffect, Suspense, useRef } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { getMovieDetails } from 'Services/axios-API-service';
 import BackLink from 'components/GoBack';
 import MovieInfo from 'components/MovieInfo';
@@ -19,17 +19,34 @@ const MovieDetails = () => {
   const [genres, setGenres] = useState('');
 
   const location = useLocation();
+  const [backLinkHref, setBackLinkHref] = useState(null);
 
-  const currentPath3 = useRef(
-    !location.pathname.includes('cast')
-      ? location?.state?.from?.pathname === '/movies'
-        ? `/movies/${location?.state.from.search}`
-        : '/'
-      : ''
-  );
+  useEffect(() => {
+    if (backLinkHref) {
+      return;
+    }
+    const state = location.state?.from ?? '/goit-react-hw-05-movies';
+    setBackLinkHref(state);
+  }, [backLinkHref, location.state]);
+
+  // useEffect(() => {
+  //   console.log(backLinkHref);
+  // }, [backLinkHref]);
+
+  // console.log(location.state.from);
+  // console.log(location?.state?.from?.pathname.includes('movies'));
+
+  // const currentPath3 = useRef(
+  //   location?.state?.from?.pathname?.includes('movies')
+  //     ? `/movies/${location?.state.from.search}`
+  //     : '/'
+  // );
+
+  // console.log(currentPath3);
 
   useEffect(() => {
     getMovieDetails(movieId).then(response => {
+      console.log(response);
       setMovie(response);
       const genresString =
         response.genres.length > 1
@@ -57,15 +74,12 @@ const MovieDetails = () => {
     <>
       {movie && (
         <>
-          <BackLink to={currentPath3.current}>go back</BackLink>
-          {/* <BackLink to={backLinkHref}>go back</BackLink> */}
+          {/* <BackLink to={currentPath3.current}>go back</BackLink> */}
+          <BackLink to={backLinkHref}>go back</BackLink>
           <MovieBlockContainer>
             <MovieInfo movieInfo={movie} genres={genres} />
             <MovieButtonContainer>
-              <MovieInfoButton
-                to={`/movies/${movieId}/cast`}
-                state={{ from: currentPath3 }}
-              >
+              <MovieInfoButton to={`/movies/${movieId}/cast`}>
                 Cast
               </MovieInfoButton>
               <MovieInfoButton to={`/movies/${movieId}/reviews`}>
